@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<title>Cantor Dust Generator</title>
+		<style>
+			body {
+				margin: 0px;
+				padding: 0px;
+			}
+			#canvas {
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id='canvas'>Your browser does not support the canvas element.</canvas>
+		<script>
+			var dust = [[true]];
+			var fps = 1;
+			var canvas = document.getElementById('canvas');
+			canvas.width = screen.width;
+			canvas.height = screen.height;
+			var ctx = canvas.getContext("2d");
+			function draw() {
+				ctx.fillStyle = '#FFFFFF';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ctx.fillStyle = '#000000';
+				yivl = canvas.height/dust.length;
+				for (a = 0; a < dust.length; a++) {
+					xivl = canvas.width/dust[a].length;
+					if (xivl < 0.008) {
+						clearInterval(loop);
+					}
+					for (b = 0; b < dust[a].length; b++) {
+						if (dust[a][b]) {
+							ctx.fillRect(b*xivl, a*yivl, xivl, yivl);
+						}
+					}
+				}
+			}
+			function update() {
+				dust.push([]);
+				dust[dust.length-2].forEach(function (item) {
+					if (item) {
+						dust[dust.length-1].push(true);
+						dust[dust.length-1].push(false);
+						dust[dust.length-1].push(true);
+					}
+					else if (!item) {
+						dust[dust.length-1].push(false);
+						dust[dust.length-1].push(false);
+						dust[dust.length-1].push(false);
+					}
+				});
+			}
+			var loop = setInterval(function () {
+				update();
+				draw();
+			}, 1000/fps);
+		</script>
+		<noscript>Your browser does not support JavaScript.</noscript>
+	</body>
+</html>
