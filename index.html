@@ -20,8 +20,8 @@
 			var dust = [[true]];
 			var fps = 1;
 			var canvas = document.getElementById('canvas');
-			canvas.width = screen.width;
-			canvas.height = screen.height;
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
 			var ctx = canvas.getContext("2d");
 			function draw() {
 				ctx.fillStyle = '#FFFFFF';
